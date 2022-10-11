@@ -19,7 +19,6 @@ export class gamePlay extends Component {
 	static score = 0;
 	
 	onLoad() {
-		console.log("in onLoad by console.log")
 		log("in onLoad by log")
 		
 		gamePlay.canThrow = true;
@@ -44,39 +43,28 @@ export class gamePlay extends Component {
 	}
 	
 	start() {
-		console.log('gamePlay.score', gamePlay.score);
-		console.log('this.lblScore.string', this.lblScore.string);
 		this.lblScore.string = "Score: " + gamePlay.score;
 	}
 	
 	changeSpeed() {
-		console.log('in changeSpeed');
 		let dir = Math.random() > 0.5 ? 1 : -1;
 		let speed = 1 + Math.random() * 2;
 		gamePlay.sprWoodRotation = dir * speed;
-		console.log('gamePlay.sprWoodRotation', gamePlay.sprWoodRotation);
 	}
 	
 	updateScore() {
 		gamePlay.score += 1;
-		// console.log('gamePlay.score', gamePlay.score);
-		// console.log('this.lblScore.string', this.lblScore.string);
 		this.lblScore.string = "Score: " + gamePlay.score;
 	}
 
 	knifeThrow() {
 		log("click!!")
-		console.log('gamePlay.canThrow', gamePlay.canThrow)
-		console.log('this.sprKnife', this.sprKnife)
 		if(gamePlay.canThrow == true) {
 			gamePlay.canThrow = false;
 			
 			const knife_x = this.sprKnife.position.x;
 			const wood_y = this.sprWood.position.y;
 			const wood_w = this.sprWood.getComponent(UITransform).width;
-			console.log('knife_x', knife_x);
-			console.log('wood_y', wood_y);
-			console.log('wood_w', wood_w);
 			
 			tween(this.sprKnife)
 				.to(0.5, { position: new Vec3(knife_x, wood_y - wood_w/2) })
@@ -91,7 +79,6 @@ export class gamePlay extends Component {
 						}
 					}
 					
-					console.log('new Vec3(this.sprKnife.position.x, screen.windowSize.height, 0)', new Vec3(this.sprKnife.position.x, this.node.getComponent(UITransform).height, 0));
 					if(isHit) {
 						tween(this.sprKnife)
 							.to(0.25, {position: new Vec3(this.sprKnife.position.x, -this.node.getComponent(UITransform).height, 0), angle: 30})
